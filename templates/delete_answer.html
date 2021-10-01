@@ -1,0 +1,9 @@
+{% extends 'base_template.html' %}
+{% block content %}
+<h2>Удаление ответа</h2>
+<p> {{ object }}</p>
+<form method="POST">
+{% csrf_token %}
+<input type="submit" value="Удалить">
+</form>
+{% endblock %}

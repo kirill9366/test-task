@@ -73,6 +73,13 @@ class Question(models.Model):
         choices=TYPE_CHOICES,
     )
 
+    def __str__(self):
+        return f'{self.text}'
+
+    class Meta:
+        verbose_name = 'Вопрос'
+        verbose_name_plural = 'Вопросы'
+
 
 class Answer(models.Model):
     """Answer model
@@ -95,6 +102,13 @@ class Answer(models.Model):
         verbose_name='Текст ответа',
         max_length=255,
     )
+
+    def __str__(self):
+        return f'{self.text}'
+
+    class Meta:
+        verbose_name = 'Ответ'
+        verbose_name_plural = 'Ответы'
 
 
 class UserAnswer(models.Model):
