@@ -14,3 +14,5 @@ sudo docker run --publish 8000:8000 test_task
 ```sh
 127.0.0.1:8000
 ```
+Документация к API:
+https://app.swaggerhub.com/apis/kirill9366/test-task/1.0.0-oas3-oas3-oas3-oas3
