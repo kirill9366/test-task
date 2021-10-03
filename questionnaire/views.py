@@ -6,10 +6,19 @@ from django.views.generic import (
 )
 from django.views.generic.edit import FormView
 
+from rest_framework import generics
+
 # locale imports
 from .forms import SurveyForm
 
-from .models import Survey, Question, Answer
+from .models import Survey, Question, Answer, UserAnswer
+
+from .serializers import (
+    SurveySerializer,
+    QuestionSerializer,
+    AnswerSerializer,
+    UserAnswerSerializer,
+)
 
 
 class SurveyListView(ListView):
@@ -33,6 +42,7 @@ class SurveyUpdateView(UpdateView):
 
 class SurveyFormView(FormView):
     form_class = SurveyForm
+    success_url = '/'
 
     template_name = 'create_survey.html'
 
@@ -46,6 +56,11 @@ class SurveyDeleteView(DeleteView):
     success_url = '/'
 
     template_name = 'delete_survey.html'
+
+
+class SurveyAPIView(generics.ListAPIView):
+    queryset = Survey.objects.all()
+    serializer_class = SurveySerializer
 
 
 class QuestionCreateView(CreateView):
@@ -78,6 +93,14 @@ class QuestionDeleteView(DeleteView):
     template_name = 'delete_question.html'
 
 
+class QuestionAPIView(generics.ListAPIView):
+    serializer_class = QuestionSerializer
+
+    def get_queryset(self):
+        pk = self.request.query_params.get('id')
+        return Question.objects.filter(pk=pk)
+
+
 class AnswerCreateView(CreateView):
     model = Answer
     fields = [
@@ -105,3 +128,19 @@ class AnswerDeleteView(DeleteView):
     success_url = '/'
 
     template_name = 'delete_answer.html'
+
+
+class AnswerAPIView(generics.ListAPIView):
+    serializer_class = AnswerSerializer
+
+    def get_queryset(self):
+        pk = self.request.query_params.get('id')
+        return Answer.objects.filter(pk=pk)
+
+
+class UserAnswerAPIView(generics.ListCreateAPIView):
+    serializer_class = UserAnswerSerializer
+
+    def get_queryset(self):
+        user_id = self.request.query_params.get('user_id')
+        return UserAnswer.objects.filter(user_id=str(user_id))

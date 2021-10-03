@@ -6,21 +6,27 @@ from .views import (
     SurveyFormView,
     SurveyUpdateView,
     SurveyDeleteView,
+    SurveyAPIView,
+
     QuestionCreateView,
     QuestionUpdateView,
     QuestionDeleteView,
+    QuestionAPIView,
+
     AnswerCreateView,
     AnswerUpdateView,
     AnswerDeleteView,
+    AnswerAPIView,
+
+    UserAnswerAPIView,
 )
 
 urlpatterns = [
+    # survey
     path('', SurveyListView.as_view(), name='surveys'),
     path(
         'create-survey/',
-        SurveyFormView.as_view(
-            success_url='/'
-        ),
+        SurveyFormView.as_view(),
         name='create_survey',
     ),
     path(
@@ -33,6 +39,12 @@ urlpatterns = [
         SurveyDeleteView.as_view(),
         name='delete_survey',
     ),
+    path(
+        'api/surveys/',
+        SurveyAPIView.as_view(),
+        name='api_survey',
+    ),
+    # question
     path(
         'create-question/',
         QuestionCreateView.as_view(),
@@ -49,6 +61,12 @@ urlpatterns = [
         name='delete_question',
     ),
     path(
+        'api/questions/',
+        QuestionAPIView.as_view(),
+        name='api_question',
+    ),
+    # answer
+    path(
         'create-answer/',
         AnswerCreateView.as_view(),
         name='create_answer',
@@ -62,5 +80,16 @@ urlpatterns = [
         'answer-delete/<int:pk>/',
         AnswerDeleteView.as_view(),
         name='answer_delete',
-    )
+    ),
+    path(
+        'api/answers/',
+        AnswerAPIView.as_view(),
+        name='api_answer',
+    ),
+    # user_answer
+    path(
+        'api/user-answers/',
+        UserAnswerAPIView.as_view(),
+        name='user_answer',
+    ),
 ]

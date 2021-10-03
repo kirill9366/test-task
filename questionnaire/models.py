@@ -116,8 +116,8 @@ class UserAnswer(models.Model):
 
     Fields
     ------
-    user : ForeignKey
-        User model
+    user_id : CharField
+        user identificator
     question : ForeignKey
         Question model
     answer : ForeignKey
@@ -127,9 +127,9 @@ class UserAnswer(models.Model):
 
     """
 
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.DO_NOTHING,
+    user_id = models.CharField(
+        verbose_name='Идентификатор пользователя',
+        max_length=10,
     )
     question = models.ForeignKey(
         Question,
@@ -138,6 +138,13 @@ class UserAnswer(models.Model):
     answer = models.ForeignKey(
         Answer,
         on_delete=models.DO_NOTHING,
+        null=True,
+        blank=True,
+    )
+    text_answer = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
     )
     created = models.DateTimeField(
         auto_now_add=True,
