@@ -1,5 +1,4 @@
 from django.db import models
-from django.conf import settings
 
 
 class Survey(models.Model):
@@ -69,6 +68,7 @@ class Question(models.Model):
         ('some_ans', 'Несколько ответов'),
     )
     type_question = models.CharField(
+        verbose_name='Тип вопроса',
         max_length=8,
         choices=TYPE_CHOICES,
     )
@@ -134,19 +134,23 @@ class UserAnswer(models.Model):
     question = models.ForeignKey(
         Question,
         on_delete=models.DO_NOTHING,
+        verbose_name='Вопрос',
     )
     answer = models.ForeignKey(
         Answer,
         on_delete=models.DO_NOTHING,
+        verbose_name='Ответ',
         null=True,
         blank=True,
     )
     text_answer = models.CharField(
         max_length=255,
+        verbose_name='Текст ответа',
         null=True,
         blank=True,
     )
     created = models.DateTimeField(
+        verbose_name='Создано',
         auto_now_add=True,
     )
 

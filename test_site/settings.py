@@ -129,5 +129,6 @@ STATICFILES_DIRS = [
 ]
 
 LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/sign-in/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

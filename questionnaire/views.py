@@ -5,6 +5,7 @@ from django.views.generic import (
     DeleteView,
 )
 from django.views.generic.edit import FormView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from rest_framework import generics
 
@@ -21,14 +22,14 @@ from .serializers import (
 )
 
 
-class SurveyListView(ListView):
+class SurveyListView(LoginRequiredMixin, ListView):
     model = Survey
     context_object_name = 'surveys'
 
     template_name = 'surveys.html'
 
 
-class SurveyUpdateView(UpdateView):
+class SurveyUpdateView(LoginRequiredMixin, UpdateView):
     model = Survey
     fields = [
         'title',
@@ -40,7 +41,7 @@ class SurveyUpdateView(UpdateView):
     template_name = 'update_survey.html'
 
 
-class SurveyFormView(FormView):
+class SurveyFormView(LoginRequiredMixin, FormView):
     form_class = SurveyForm
     success_url = '/'
 
@@ -51,7 +52,7 @@ class SurveyFormView(FormView):
         return super().form_valid(form)
 
 
-class SurveyDeleteView(DeleteView):
+class SurveyDeleteView(LoginRequiredMixin, DeleteView):
     model = Survey
     success_url = '/'
 
@@ -63,7 +64,7 @@ class SurveyAPIView(generics.ListAPIView):
     serializer_class = SurveySerializer
 
 
-class QuestionCreateView(CreateView):
+class QuestionCreateView(LoginRequiredMixin, CreateView):
     model = Question
     fields = [
         'survey',
@@ -75,7 +76,7 @@ class QuestionCreateView(CreateView):
     template_name = 'create_survey.html'
 
 
-class QuestionUpdateView(UpdateView):
+class QuestionUpdateView(LoginRequiredMixin, UpdateView):
     model = Question
     fields = [
         'text',
@@ -86,7 +87,7 @@ class QuestionUpdateView(UpdateView):
     template_name = 'update_question.html'
 
 
-class QuestionDeleteView(DeleteView):
+class QuestionDeleteView(LoginRequiredMixin, DeleteView):
     model = Question
     success_url = '/'
 
@@ -101,7 +102,7 @@ class QuestionAPIView(generics.ListAPIView):
         return Question.objects.filter(pk=pk)
 
 
-class AnswerCreateView(CreateView):
+class AnswerCreateView(LoginRequiredMixin, CreateView):
     model = Answer
     fields = [
         'question',
@@ -112,7 +113,7 @@ class AnswerCreateView(CreateView):
     template_name = 'create_survey.html'
 
 
-class AnswerUpdateView(UpdateView):
+class AnswerUpdateView(LoginRequiredMixin, UpdateView):
     model = Answer
     fields = [
         'question',
@@ -123,7 +124,7 @@ class AnswerUpdateView(UpdateView):
     template_name = 'update_answer.html'
 
 
-class AnswerDeleteView(DeleteView):
+class AnswerDeleteView(LoginRequiredMixin, DeleteView):
     model = Answer
     success_url = '/'
 

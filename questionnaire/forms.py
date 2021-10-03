@@ -20,21 +20,3 @@ class SurveyForm(forms.ModelForm):
                 }
             ),
         }
-
-
-class SurveyUpdateForm(forms.ModelForm):
-    class Meta:
-        model = Survey
-        exclude = []
-        widgets = {
-            'start_date': forms.DateTimeInput(
-                attrs={
-                    'placeholder': '2006-10-25 14:30:59',
-                }
-            ),
-            'end_date': forms.DateTimeInput(
-                attrs={
-                    'placeholder': '2006-10-25 14:30:59',
-                }
-            ),
-        }

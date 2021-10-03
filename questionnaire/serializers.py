@@ -6,13 +6,24 @@ from .models import Survey, Question, Answer, UserAnswer
 class SurveySerializer(serializers.ModelSerializer):
     class Meta:
         model = Survey
-        fields = '__all__'
+        fields = (
+            'title',
+            'start_date',
+            'end_date',
+            'description',
+            'question_set',
+        )
 
 
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = '__all__'
+        fields = (
+            'survey',
+            'text',
+            'type_question',
+            'answer_set',
+        )
 
 
 class AnswerSerializer(serializers.ModelSerializer):
